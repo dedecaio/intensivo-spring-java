@@ -1,6 +1,7 @@
 package com.caio.dslist.dto;
 
 import com.caio.dslist.entities.Game;
+import com.caio.dslist.projections.GameMinProjection;
 
 public class GameMinDTO {
     private Long id;
@@ -16,6 +17,14 @@ public class GameMinDTO {
         id = entity.getId();
         title = entity.getTitle();
         year = entity.getYear();
+        imgUrl = entity.getImgUrl();
+        shortDescription = entity.getShortDescription();
+    }
+
+    public GameMinDTO(GameMinProjection entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        year = entity.getGameYear();
         imgUrl = entity.getImgUrl();
         shortDescription = entity.getShortDescription();
     }

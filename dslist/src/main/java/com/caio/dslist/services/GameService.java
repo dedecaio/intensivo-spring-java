@@ -3,6 +3,7 @@ package com.caio.dslist.services;
 import com.caio.dslist.dto.GameDTO;
 import com.caio.dslist.dto.GameMinDTO;
 import com.caio.dslist.entities.Game;
+import com.caio.dslist.projections.GameMinProjection;
 import com.caio.dslist.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class GameService {
     private GameRepository repository;
+
 
     @Autowired
     public GameService(GameRepository repository) {
@@ -44,4 +46,17 @@ public class GameService {
         }
 
     }
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId){
+        List<GameMinProjection> games = repository.searchByList(listId);
+        List<GameMinDTO> gameMinDTOList = new ArrayList<>();
+        for(GameMinProjection game : games){
+            GameMinDTO gameMinDTO = new GameMinDTO(game);
+            gameMinDTOList.add(gameMinDTO);
+        }
+        return gameMinDTOList;
+
+    }
+
+
 }
